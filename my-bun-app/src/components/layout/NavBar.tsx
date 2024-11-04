@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { auth, signOut, signIn } from "../../auth";
+import { auth, signOut, signIn } from "../../../auth";
 import { BadgePlus, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -27,15 +27,14 @@ const Navbar = async () => {
                   "use server";
 
                   await signOut({ redirectTo: "/" });
-                }}
-              >
+                }}>
                 <button type="submit">
                   <span className="max-sm:hidden">Logout</span>
                   <LogOut className="size-6 sm:hidden text-red-500" />
                 </button>
               </form>
 
-              <Link href={`/user/${session?.id}`}>
+              <Link href={`/user/${session?.user?.id}`}>
                 <Avatar className="size-10">
                   <AvatarImage
                     src={session?.user?.image || ""}
@@ -51,8 +50,7 @@ const Navbar = async () => {
                 "use server";
 
                 await signIn("github");
-              }}
-            >
+              }}>
               <button type="submit">Login</button>
             </form>
           )}
